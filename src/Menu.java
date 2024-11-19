@@ -26,6 +26,8 @@ public class Menu {
 
             System.out.print("> ");
             switch (getIntInput()) {
+                case -1:
+                    break;
                 case 1:
                     displayIncomeMenu();
                     break;
@@ -36,7 +38,6 @@ public class Menu {
                     System.out.println("help");
                     break;
                 case 4:
-                    System.out.println("Til next time!");
                     System.out.println("Til next time!");
                     exit = true;
                     break;
@@ -66,6 +67,8 @@ public class Menu {
 
             System.out.print("> ");
             switch (getIntInput()) {
+                case -1:
+                    break;
                 case 1:
                     System.out.println("add income");
                     break;
@@ -114,6 +117,8 @@ public class Menu {
 
             System.out.print("> ");
             switch (getIntInput()) {
+                case -1:
+                    break;
                 case 1:
                     System.out.println("add expense");
                     break;
@@ -138,6 +143,7 @@ public class Menu {
                     break;
                 default:
                     System.out.println("Invalid option\n");
+                    break;
             }
         } while (!exit);
     }
