@@ -44,6 +44,7 @@ public class Menu {
                 }
             } catch (Exception e) {
                 System.out.println("Invalid option. Please select a number.");
+                in.nextLine();
             }
         }
     }
@@ -90,11 +91,13 @@ public class Menu {
                         break;
                     case 7:
                         exit = true;
+                        break;
                     default:
                         System.out.println("Invalid option\n");
                 }
             } catch (Exception e) {
                 System.out.println("Invalid option. Please select a number.");
+                in.nextLine();
             }
         }
     }
@@ -141,11 +144,13 @@ public class Menu {
                         break;
                     case 7:
                         exit = true;
+                        break;
                     default:
                         System.out.println("Invalid option\n");
                 }
             } catch (Exception e) {
                 System.out.println("Invalid option. Please select a number.");
+                in.nextLine();
             }
         }
     }
