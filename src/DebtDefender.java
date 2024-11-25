@@ -4,5 +4,6 @@ public class DebtDefender {
         System.out.println("Welcome to Debt Defender");
 
         menu.displayMainMenu();
+
     }
 }
