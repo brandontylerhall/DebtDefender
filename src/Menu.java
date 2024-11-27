@@ -11,6 +11,7 @@ public class Menu {
         boolean exit = false;
         while (!exit) {
             try {
+                // What the following comment does is simply tell IntelliJ to not format the code when you press Ctrl + Alt + L (the shortcut to have the IDE reformat your code)
                 // @formatter:off
                 System.out.println("Main menu:\n----------");
                 System.out.print(
@@ -72,19 +73,19 @@ public class Menu {
                 System.out.print("> ");
                 switch (in.nextInt()) {
                     case 1:
-                        System.out.println("add income");
+                        System.out.println("income.add()");
                         break;
                     case 2:
-                        System.out.println("remove income");
+                        System.out.println("income.remove()");
                         break;
                     case 3:
-                        System.out.println("view all income");
+                        System.out.println("showAll()");
                         break;
                     case 4:
-                        System.out.println("edit income");
+                        System.out.println("income.edit()");
                         break;
                     case 5:
-                        System.out.println("help");
+                        System.out.println("help()");
                         break;
                     case 6:
                         displayMainMenu();
@@ -125,19 +126,19 @@ public class Menu {
                 System.out.print("> ");
                 switch (in.nextInt()) {
                     case 1:
-                        System.out.println("add expense");
+                        System.out.println("expense.add()");
                         break;
                     case 2:
-                        System.out.println("remove expense");
+                        System.out.println("expense.remove()");
                         break;
                     case 3:
-                        System.out.println("view all expenses");
+                        System.out.println("showAll()");
                         break;
                     case 4:
-                        System.out.println("edit expense");
+                        System.out.println("expense.edit()");
                         break;
                     case 5:
-                        System.out.println("help");
+                        System.out.println("help()");
                         break;
                     case 6:
                         displayMainMenu();
@@ -155,6 +156,7 @@ public class Menu {
         }
     }
 
+    // Right now I'm unsure how I want to go about implementing the help method. I have some thinking to do on this one.
     public void displayHelpMenu() {
 
     }
