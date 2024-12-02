@@ -37,7 +37,7 @@ public class Menu {
                         System.out.println("help");
                         break;
                     case 4:
-                        System.out.println("Til next time!");
+                        System.out.println("We hope you will use our service next time!");
                         exit = true;
                         break;
                     default:
@@ -158,6 +158,56 @@ public class Menu {
 
     // Right now I'm unsure how I want to go about implementing the help method. I have some thinking to do on this one.
     public void displayHelpMenu() {
+        boolean exit = false;
+        while (!exit) {
+            try {
+                // @formatter:off
+                System.out.println("Help menu:\n--------------------");
+                System.out.print(
+                        """
+                        1. 
+                        2. 
+                        3. 
+                        4. 
+                        5. 
+                        6. 
+                        7. 
+                        --------------------
+                        """
+                );
+                // @formatter:on
 
+                System.out.print("> ");
+                switch (in.nextInt()) {
+                    case 1:
+                        System.out.println("If your having trouble understanding please go to our about page");
+                        break;
+                    case 2:
+                        System.out.println("");
+                        break;
+                    case 3:
+                        System.out.println("");
+                        break;
+                    case 4:
+                        System.out.println("");
+                        break;
+                    case 5:
+                        System.out.println("");
+                        break;
+                    case 6:
+                        displayMainMenu();
+                        break;
+                    case 7:
+                        exit = true;
+                        break;
+                    default:
+                        System.out.println("Invalid option\n");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid option. Please select a number.");
+                in.nextLine();
+            }
+        }
     }
+
 }

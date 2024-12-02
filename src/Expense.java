@@ -10,6 +10,9 @@ public class Expense extends Entry {
         super(name, description, category, recurrence, amount, beginDate);
     }
 
+    public Expense(String name, double amount) {
+    }
+
     // Since we're extending Entry in this class, we HAVE to implement the abstract classes from before otherwise Java has a stroke.
     @Override
     public void add(Scanner in) {
