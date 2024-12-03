@@ -1,13 +1,7 @@
-import java.io.IOException;
-
 public class DebtDefender {
-    public static void main(String[] args) throws IOException {
-        CSV csv = new CSV();
-        csv.createFile();
-        csv.readFromCSV(Income.getIncomes(), Expense.getExpenses());
-
+    public static void main(String[] args) {
         Menu menu = new Menu();
-        System.out.println("Welcome to Debt Defender!");
+        System.out.println("Welcome to Debt Defender\n");
 
         menu.displayMainMenu();
     }

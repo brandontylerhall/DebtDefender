@@ -1,65 +1,19 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Menu {
     private Scanner in;
-    private CSV csvHandler = new CSV();
-    private boolean exit = false;
 
     public Menu() {
         in = new Scanner(System.in);
     }
 
-    public static <T> void textBox(ArrayList<T> list) {
-        if (list.isEmpty()) {
-            return;
-        }
-
-        StringBuilder itemsBuilder = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            T item = list.get(i);
-
-            if (item instanceof Income || item instanceof Expense) {
-                Entry entry = (Entry) item;
-                itemsBuilder.append(entry.getName());
-            } else if (item instanceof String) {  // Specifically check for String type
-                itemsBuilder.append(item); // Append the String directly, without toString()
-            } else {
-                itemsBuilder.append(item.toString()); // For other types, use toString()
-            }
-
-            if (i % 3 == 2 && i != list.size() - 1) {
-                itemsBuilder.append("\n");
-            } else if (i != list.size() - 1) {
-                itemsBuilder.append(", ");
-            }
-        }
-        String items = itemsBuilder.toString();
-
-        // Calculate width (using the formatted items string)
-        int padding = 2;
-        int width = items.lines().mapToInt(String::length).max().getAsInt() + 2 * padding;
-
-        System.out.println("\n+" + "-".repeat(width) + "+");
-
-        // Text inside the box (using the formatted items string)
-        for (String line : items.split("\n")) {
-            System.out.println("|" + " ".repeat(padding) + line + " ".repeat(width - line.length() - padding) + "|");
-        }
-
-        System.out.println("+" + "-".repeat(width) + "+\n");
-    }
-
-    public void setExit(boolean exit) {
-        this.exit = exit;
-    }
-
     public void displayMainMenu() {
+        boolean exit = false;
         while (!exit) {
             try {
+                // What the following comment does is simply tell IntelliJ to not format the code when you press Ctrl + Alt + L (the shortcut to have the IDE reformat your code)
                 // @formatter:off
-                System.out.println("\nMain menu:\n----------");
+                System.out.println("Main menu:\n----------");
                 System.out.print(
                         """
                         1. Income
@@ -83,8 +37,8 @@ public class Menu {
                         System.out.println("help");
                         break;
                     case 4:
-                        setExit(true);
-                        csvHandler.writeToCSV(Income.getIncomes(), Expense.getExpenses());
+                        System.out.println("We hope you will use our service next time!");
+                        exit = true;
                         break;
                     default:
                         System.out.println("Invalid option\n");
@@ -97,10 +51,11 @@ public class Menu {
     }
 
     public void displayIncomeMenu() {
+        boolean exit = false;
         while (!exit) {
             try {
                 // @formatter:off
-                System.out.println("\nIncome menu:\n--------------------");
+                System.out.println("Income menu:\n--------------------");
                 System.out.print(
                         """
                         1. Add an income
@@ -118,33 +73,25 @@ public class Menu {
                 System.out.print("> ");
                 switch (in.nextInt()) {
                     case 1:
-                        in.nextLine();
-                        Income income = new Income();
-                        income.add(in);
+                        System.out.println("income.add()");
                         break;
                     case 2:
-                        in.nextLine();
-                        Income removeIncome = new Income();
-                        removeIncome.remove(in);
+                        System.out.println("income.remove()");
                         break;
                     case 3:
-                        Income showIncome = new Income();
-                        showIncome.showAll(in);
+                        System.out.println("showAll()");
                         break;
                     case 4:
-                        in.nextLine();
-                        Income editIncome = new Income();
-                        editIncome.edit(in);
+                        System.out.println("income.edit()");
                         break;
                     case 5:
-                        System.out.println("help");
+                        System.out.println("help()");
                         break;
                     case 6:
                         displayMainMenu();
                         break;
                     case 7:
-                        setExit(true);
-                        csvHandler.writeToCSV(Income.getIncomes(), Expense.getExpenses());
+                        exit = true;
                         break;
                     default:
                         System.out.println("Invalid option\n");
@@ -157,10 +104,11 @@ public class Menu {
     }
 
     public void displayExpenseMenu() {
+        boolean exit = false;
         while (!exit) {
             try {
                 // @formatter:off
-                System.out.println("\nExpense menu:\n--------------------");
+                System.out.println("Expense menu:\n--------------------");
                 System.out.print(
                         """
                         1. Add an expense
@@ -178,32 +126,25 @@ public class Menu {
                 System.out.print("> ");
                 switch (in.nextInt()) {
                     case 1:
-                        in.nextLine();
-                        Expense expense = new Expense();
-                        expense.add(in);
+                        System.out.println("expense.add()");
                         break;
                     case 2:
-                        in.nextLine();
-                        Expense removeExpense = new Expense();
-                        removeExpense.remove(in);
+                        System.out.println("expense.remove()");
                         break;
                     case 3:
-                        Expense showExpense = new Expense();
-                        showExpense.showAll(in);
+                        System.out.println("showAll()");
                         break;
                     case 4:
-                        Expense editExpense = new Expense();
-                        editExpense.edit(in);
+                        System.out.println("expense.edit()");
                         break;
                     case 5:
-                        System.out.println("help");
+                        System.out.println("help()");
                         break;
                     case 6:
                         displayMainMenu();
                         break;
                     case 7:
-                        setExit(true);
-                        csvHandler.writeToCSV(Income.getIncomes(), Expense.getExpenses());
+                        exit = true;
                         break;
                     default:
                         System.out.println("Invalid option\n");
@@ -215,7 +156,58 @@ public class Menu {
         }
     }
 
+    // Right now I'm unsure how I want to go about implementing the help method. I have some thinking to do on this one.
     public void displayHelpMenu() {
+        boolean exit = false;
+        while (!exit) {
+            try {
+                // @formatter:off
+                System.out.println("Help menu:\n--------------------");
+                System.out.print(
+                        """
+                        1. 
+                        2. 
+                        3. 
+                        4. 
+                        5. 
+                        6. 
+                        7. 
+                        --------------------
+                        """
+                );
+                // @formatter:on
 
+                System.out.print("> ");
+                switch (in.nextInt()) {
+                    case 1:
+                        System.out.println("If your having trouble understanding please go to our about page");
+                        break;
+                    case 2:
+                        System.out.println("");
+                        break;
+                    case 3:
+                        System.out.println("");
+                        break;
+                    case 4:
+                        System.out.println("");
+                        break;
+                    case 5:
+                        System.out.println("");
+                        break;
+                    case 6:
+                        displayMainMenu();
+                        break;
+                    case 7:
+                        exit = true;
+                        break;
+                    default:
+                        System.out.println("Invalid option\n");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid option. Please select a number.");
+                in.nextLine();
+            }
+        }
     }
+
 }
