@@ -2,20 +2,11 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public abstract class Entry {
-    /*
-        I didn't make this super clear in the spreadsheet, but since this is a parent class, you put the fields here, not in the child classes.
-        Furthermore, it would be in this class where you put the getters and setters to reduce redundancy.
-        Since the fields and getters/setters are in the parent class, the children classes can implement them due to inheritance.
-     */
     private String name;
     private String description;
     private String category;
     private int recurrence;
     private double amount;
-    /*
-        We're going to use a LocalDate type here for a bunch of different reasons.
-        The most prevalent one is that input validation and data manipulation are much easier by using this data type rather than something like a string.
-     */
     private LocalDate beginDate;
 
     public Entry() {
@@ -28,6 +19,45 @@ public abstract class Entry {
         this.recurrence = recurrence;
         this.amount = amount;
         this.beginDate = beginDate;
+    }
+
+    protected static int promptForInt(Scanner in, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            if (in.hasNextInt()) {
+                int recurrence = in.nextInt();
+                in.nextLine();
+                return recurrence;
+            } else {
+                System.out.println("Invalid. Please enter an integer.");
+                in.nextLine();
+            }
+        }
+    }
+
+    protected static double promptForDouble(Scanner in, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            if (in.hasNextDouble()) {
+                int amount = in.nextInt();
+                in.nextLine();
+                return amount;
+            } else {
+                System.out.println("Invalid. Please enter an integer.");
+                in.nextLine();
+            }
+        }
+    }
+
+    protected static LocalDate promptForDate(Scanner in, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            try {
+                return LocalDate.parse(in.nextLine());
+            } catch (Exception e) {
+                System.out.println("Invalid date format. Please enter a valid date format.");
+            }
+        }
     }
 
     public String getName() {
@@ -78,15 +108,24 @@ public abstract class Entry {
         this.beginDate = beginDate;
     }
 
-
-    /*
-        These are some of the abstract classes I want to implement in the children classes.
-        You would want to make these abstract because we are going to have differing output statements between the children classes.
-     */
-
     public abstract void add(Scanner in);
 
-    public abstract void remove();
+    public abstract void remove(Scanner in);
 
-    public abstract void edit();
+    public abstract void edit(Scanner in);
+
+    public abstract void showAll(Scanner in);
+
+    public String toString() {
+        if (this.recurrence == 1) {
+            return String.format("\nName: %s\nDescription: %s\nCategory: %s\nRecurrence: %d time per month\nAmount: $%.2f\nBegin date: %s", this.getName(), this.getDescription(), this.getCategory(), this.getRecurrence(), this.getAmount(), this.getBeginDate());
+        } else {
+            return String.format("\nName: %s\nDescription: %s\nCategory: %s\nRecurrence: %d times per month\nAmount: $%.2f\nBegin date: %s", this.getName(), this.getDescription(), this.getCategory(), this.getRecurrence(), this.getAmount(), this.getBeginDate());
+        }
+    }
+
+    public String toCSVString() {
+        return name + "," + description + "," + category + "," + recurrence + "," + amount + "," + beginDate;
+    }
+
 }
