@@ -48,7 +48,7 @@ public class Menu {
             System.out.println("|" + " ".repeat(padding) + line + " ".repeat(width - line.length() - padding) + "|");
         }
 
-        System.out.println("+" + "-".repeat(width) + "+\n");
+        System.out.println("+" + "-".repeat(width) + "+");
     }
 
     public void setExit(boolean exit) {
@@ -64,8 +64,9 @@ public class Menu {
                         """
                         1. Income
                         2. Expense
-                        3. Help
-                        4. Exit
+                        3. Finance Report
+                        4. Help
+                        5. Exit
                         ----------
                         """
                 );
@@ -80,9 +81,12 @@ public class Menu {
                         displayExpenseMenu();
                         break;
                     case 3:
-                        System.out.println("help");
+                        ReportHandler.generateReport(Income.getIncomes(), Expense.getExpenses());
                         break;
                     case 4:
+                        System.out.println("help");
+                        break;
+                    case 5:
                         setExit(true);
                         csvHandler.writeToCSV(Income.getIncomes(), Expense.getExpenses());
                         break;
