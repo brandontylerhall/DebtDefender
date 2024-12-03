@@ -42,15 +42,15 @@ public class Expense extends Entry {
 
     @Override
     public void add(Scanner in) {
-        System.out.print("Enter the name of the expense\n> ");
+        System.out.print("\nEnter the name of the expense\n> ");
         String name = in.nextLine();
-        System.out.print("Enter the description of the expense\n> ");
+        System.out.print("\nEnter the description of the expense\n> ");
         String description = in.nextLine();
-        System.out.print("Enter the category of the expense\n> ");
+        System.out.print("\nEnter the category of the expense\n> ");
         String category = in.nextLine();
-        int recurrence = promptForInt(in, "Enter the recurrence of the expense per month\n> ");
-        double amount = promptForDouble(in, "Enter the amount of the expense\n> ");
-        LocalDate beginDate = promptForDate(in, "Enter the begin date of the expense (YYYY-MM-DD)\n> ");
+        int recurrence = promptForInt(in, "\nEnter the recurrence of the expense per month\n> ");
+        double amount = promptForDouble(in, "\nEnter the amount of the expense\n> ");
+        LocalDate beginDate = promptForDate(in, "\nEnter the begin date of the expense (YYYY-MM-DD)\n> ");
 
         Expense expense = new Expense(name, description, category, recurrence, amount, beginDate);
         expenses.add(expense);
@@ -62,9 +62,9 @@ public class Expense extends Entry {
 
         if (entryToRemove != null) {
             expenses.remove(entryToRemove);
-            System.out.println("Expense removed successfully!");
+            System.out.println("\nExpense removed successfully!");
         } else {
-            System.out.println("Expense not found.");
+            System.out.println("\nExpense not found.");
         }
     }
 
@@ -82,29 +82,29 @@ public class Expense extends Entry {
 
                 switch (fieldToEdit) {
                     case "name":
-                        System.out.print("Enter the new name of the expense\n> ");
+                        System.out.print("\nEnter the new name of the expense\n> ");
                         entryToEdit.setName(in.nextLine());
                         break;
                     case "description":
-                        System.out.print("Enter the new description of the expense\n> ");
+                        System.out.print("\nEnter the new description of the expense\n> ");
                         entryToEdit.setDescription(in.nextLine());
                         break;
                     case "category":
-                        System.out.print("Enter the new category of the expense\n> ");
+                        System.out.print("\nEnter the new category of the expense\n> ");
                         entryToEdit.setCategory(in.nextLine());
                         break;
                     case "recurrence":
-                        System.out.print("Enter the new recurrence of the expense\n> ");
+                        System.out.print("\nEnter the new recurrence of the expense\n> ");
                         entryToEdit.setRecurrence(in.nextInt());
                         in.nextLine();
                         break;
                     case "amount":
-                        System.out.print("Enter the new amount of the expense\n> ");
+                        System.out.print("\nEnter the new amount of the expense\n> ");
                         entryToEdit.setAmount(in.nextDouble());
                         in.nextLine();
                         break;
                     case "begin date":
-                        System.out.print("Enter the new begin date of the expense (YYYY-MM-DD)\n> ");
+                        System.out.print("\nEnter the new begin date of the expense (YYYY-MM-DD)\n> ");
                         entryToEdit.setBeginDate(LocalDate.parse(in.nextLine()));
                         break;
                     default:
@@ -112,20 +112,20 @@ public class Expense extends Entry {
                         break;
                 }
 
-                System.out.print("Would you like to edit another field? (y/n)\n> ");
+                System.out.print("\nWould you like to edit another field? (y/n)\n> ");
 
                 String ans = in.nextLine();
                 stop = ans.equalsIgnoreCase("n");
             }
-            System.out.println("Expense updated successfully!");
+            System.out.println("\nExpense updated successfully!");
         } else {
-            System.out.println("Expense not found.");
+            System.out.println("\nExpense not found.");
         }
     }
 
     public void showAll(Scanner in) {
         if (expenses.isEmpty()) {
-            System.out.println("Nothing to show");
+            System.out.println("\nNothing to show");
             return;
         }
 
@@ -134,10 +134,10 @@ public class Expense extends Entry {
         boolean exit = false;
         while (!exit) {
             Menu.textBox(expenses);
-            System.out.print("Would you like to see more details of a specific entry? [y/n]: ");
+            System.out.print("\nWould you like to see more details of a specific entry? [y/n]\n> ");
             String answer = in.nextLine();
             if (answer.equalsIgnoreCase("y")) {
-                System.out.print("Enter the name of the expense: ");
+                System.out.print("\nEnter the name of the expense: ");
                 String nameToSeeMoreOf = in.nextLine();
 
                 boolean found = false;
@@ -153,7 +153,7 @@ public class Expense extends Entry {
                 }
 
                 if (!found) {
-                    System.out.println("Expense not found.");
+                    System.out.println("\nExpense not found.");
                 }
             } else if (answer.equalsIgnoreCase("n")) {
                 exit = true;

@@ -45,15 +45,15 @@ public class Income extends Entry {
 
     @Override
     public void add(Scanner in) {
-        System.out.print("Enter the name of the income\n> ");
+        System.out.print("\nEnter the name of the income\n> ");
         String name = in.nextLine();
-        System.out.print("Enter the description of the income\n> ");
+        System.out.print("\nEnter the description of the income\n> ");
         String description = in.nextLine();
-        System.out.print("Enter the category of the income\n> ");
+        System.out.print("\nEnter the category of the income\n> ");
         String category = in.nextLine();
-        int recurrence = promptForInt(in, "Enter the recurrence of the income per month\n> ");
-        double amount = promptForDouble(in, "Enter the amount of the income\n> ");
-        LocalDate beginDate = promptForDate(in, "Enter the begin date of the income (YYYY-MM-DD)\n> ");
+        int recurrence = promptForInt(in, "\nEnter the recurrence of the income per month\n> ");
+        double amount = promptForDouble(in, "\nEnter the amount of the income\n> ");
+        LocalDate beginDate = promptForDate(in, "\nEnter the begin date of the income (YYYY-MM-DD)\n> ");
 
         Income income = new Income(name, description, category, recurrence, amount, beginDate);
         incomes.add(income);
@@ -83,29 +83,29 @@ public class Income extends Entry {
 
                 switch (fieldToEdit) {
                     case "name":
-                        System.out.print("Enter the new name of the income\n> ");
+                        System.out.print("\nEnter the new name of the income\n> ");
                         entryToEdit.setName(in.nextLine());
                         break;
                     case "description":
-                        System.out.print("Enter the new description of the income\n> ");
+                        System.out.print("\nEnter the new description of the income\n> ");
                         entryToEdit.setDescription(in.nextLine());
                         break;
                     case "category":
-                        System.out.print("Enter the new category of the income\n> ");
+                        System.out.print("\nEnter the new category of the income\n> ");
                         entryToEdit.setCategory(in.nextLine());
                         break;
                     case "recurrence":
-                        System.out.print("Enter the new recurrence of the income\n> ");
+                        System.out.print("\nEnter the new recurrence of the income\n> ");
                         entryToEdit.setRecurrence(in.nextInt());
                         in.nextLine();
                         break;
                     case "amount":
-                        System.out.print("Enter the new amount of the income\n> ");
+                        System.out.print("\nEnter the new amount of the income\n> ");
                         entryToEdit.setAmount(in.nextDouble());
                         in.nextLine();
                         break;
                     case "begin date":
-                        System.out.print("Enter the new begin date of the income (YYYY-MM-DD)\n> ");
+                        System.out.print("\nEnter the new begin date of the income (YYYY-MM-DD)\n> ");
                         entryToEdit.setBeginDate(LocalDate.parse(in.nextLine()));
                         break;
                     default:
@@ -113,7 +113,7 @@ public class Income extends Entry {
                         break;
                 }
 
-                System.out.print("Would you like to edit another field? (y/n)\n> ");
+                System.out.print("\nWould you like to edit another field? (y/n)\n> ");
 
                 String ans = in.nextLine();
                 stop = ans.equalsIgnoreCase("n");
@@ -124,7 +124,7 @@ public class Income extends Entry {
 
     public void showAll(Scanner in) {
         if (incomes.isEmpty()) {
-            System.out.println("Nothing to show");
+            System.out.println("\nNothing to show");
             return;
         }
 
@@ -133,10 +133,10 @@ public class Income extends Entry {
         boolean exit = false;
         while (!exit) {
             Menu.textBox(incomes);
-            System.out.print("Would you like to see more details of a specific entry? [y/n]: ");
+            System.out.print("\nWould you like to see more details of a specific entry? [y/n]\n> ");
             String answer = in.nextLine();
             if (answer.equalsIgnoreCase("y")) {
-                System.out.print("Enter the name of the income: ");
+                System.out.print("\nEnter the name of the income: ");
                 String nameToSeeMoreOf = in.nextLine();
 
                 boolean found = false;

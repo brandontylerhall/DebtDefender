@@ -118,7 +118,7 @@ public abstract class Entry {
 
     public String toString() {
         if (this.recurrence == 1) {
-            return String.format("\nName: %s\nDescription: %s\nCategory: %s\nRecurrence: %d time per month\nAmount: $%.2f\nBegin date: %s", this.getName(), this.getDescription(), this.getCategory(), this.getRecurrence(), this.getAmount(), this.getBeginDate());
+            return String.format("\nName: %s\nDescription: %s\nCategory: %s\nRecurrence: %d time per month\nAmount: $%.2f\nBegin date: %s\n", this.getName(), this.getDescription(), this.getCategory(), this.getRecurrence(), this.getAmount(), this.getBeginDate());
         } else {
             return String.format("\nName: %s\nDescription: %s\nCategory: %s\nRecurrence: %d times per month\nAmount: $%.2f\nBegin date: %s", this.getName(), this.getDescription(), this.getCategory(), this.getRecurrence(), this.getAmount(), this.getBeginDate());
         }
