@@ -51,7 +51,7 @@ public class CSV {
                     income.setDescription(values[1]);
                     income.setCategory(values[2]);
                     income.setRecurrence(parseInt(values[3]));
-                    income.setAmount(parseDouble(values[4]));
+                    income.setAmountPerPayment(parseDouble(values[4]));
                     income.setBeginDate(LocalDate.parse(values[5]));
                     incomes.add(income);
                 } else if (values[6].equals("Expense")) {
@@ -60,7 +60,7 @@ public class CSV {
                     expense.setDescription(values[1]);
                     expense.setCategory(values[2]);
                     expense.setRecurrence(parseInt(values[3]));
-                    expense.setAmount(parseDouble(values[4]));
+                    expense.setAmountPerPayment(parseDouble(values[4]));
                     expense.setBeginDate(LocalDate.parse(values[5]));
                     expenses.add(expense);
                 }

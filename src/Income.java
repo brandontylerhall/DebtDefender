@@ -5,21 +5,18 @@ import java.util.Scanner;
 
 public class Income extends Entry {
     private static ArrayList<Income> incomes = new ArrayList<>();
-    private ArrayList<String> fields = new ArrayList<>(Arrays.asList("Name", "Description", "Category", "Recurrence", "Amount", "Begin Date"));
+    private final ArrayList<String> fields = new ArrayList<>(Arrays.asList("Name", "Description", "Category", "Recurrence", "Amount", "Begin Date"));
 
     public Income() {
+        super();
     }
 
-    public Income(String name, String description, String category, int recurrence, double amount, LocalDate beginDate) {
-        super(name, description, category, recurrence, amount, beginDate);
+    public Income(String name, String description, String category, int recurrence, double amountPerPayment, LocalDate beginDate) {
+        super(name, description, category, recurrence, amountPerPayment, beginDate);
     }
 
     public static ArrayList<Income> getIncomes() {
         return incomes;
-    }
-
-    public static void setIncomes(ArrayList<Income> incomes) {
-        Income.incomes = incomes;
     }
 
     public static Income search(Scanner in, ArrayList<Income> incomes, String type, String action) {
@@ -51,10 +48,10 @@ public class Income extends Entry {
         System.out.print("\nEnter the category of the income\n> ");
         String category = in.nextLine();
         int recurrence = promptForInt(in, "\nEnter the recurrence of the income per month\n> ");
-        double amount = promptForDouble(in, "\nEnter the amount of the income\n> ");
+        double amountPerPayment = promptForDouble(in, "\nEnter the amount of the income\n> ");
         LocalDate beginDate = promptForDate(in, "\nEnter the begin date of the income (YYYY-MM-DD)\n> ");
 
-        Income income = new Income(name, description, category, recurrence, amount, beginDate);
+        Income income = new Income(name, description, category, recurrence, amountPerPayment, beginDate);
         incomes.add(income);
     }
 
@@ -100,7 +97,7 @@ public class Income extends Entry {
                         break;
                     case "amount":
                         System.out.print("\nEnter the new amount of the income\n> ");
-                        entryToEdit.setAmount(in.nextDouble());
+                        entryToEdit.setAmountPerPayment(in.nextDouble());
                         in.nextLine();
                         break;
                     case "begin date":
