@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Menu {
@@ -81,7 +80,7 @@ public class Menu {
                         displayExpenseMenu();
                         break;
                     case 3:
-                        ReportHandler.generateReport(Income.getIncomes(), Expense.getExpenses());
+                        ReportHandler.beginReport(Income.getIncomes(), Expense.getExpenses(), in);
                         break;
                     case 4:
                         System.out.println("help");
