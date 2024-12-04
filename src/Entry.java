@@ -6,19 +6,23 @@ public abstract class Entry {
     private String description;
     private String category;
     private int recurrence;
-    private double amount;
+    private double amountPerPayment;
     private LocalDate beginDate;
 
     public Entry() {
     }
 
-    public Entry(String name, String description, String category, int recurrence, double amount, LocalDate beginDate) {
+    public Entry(String name, String description, String category, int recurrence, double amountPerPayment, LocalDate beginDate) {
         this.name = name;
         this.description = description;
         this.category = category;
         this.recurrence = recurrence;
-        this.amount = amount;
+        this.amountPerPayment = amountPerPayment;
         this.beginDate = beginDate;
+    }
+
+    public double getAmountPerMonth() {
+        return amountPerPayment * recurrence;
     }
 
     protected static int promptForInt(Scanner in, String prompt) {
@@ -39,7 +43,7 @@ public abstract class Entry {
         while (true) {
             System.out.print(prompt);
             if (in.hasNextDouble()) {
-                int amount = in.nextInt();
+                double amount = in.nextDouble();
                 in.nextLine();
                 return amount;
             } else {
@@ -92,12 +96,12 @@ public abstract class Entry {
         this.recurrence = recurrence;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getAmountPerPayment() {
+        return amountPerPayment;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setAmountPerPayment(double amountPerPayment) {
+        this.amountPerPayment = amountPerPayment;
     }
 
     public LocalDate getBeginDate() {
@@ -118,14 +122,14 @@ public abstract class Entry {
 
     public String toString() {
         if (this.recurrence == 1) {
-            return String.format("\nName: %s\nDescription: %s\nCategory: %s\nRecurrence: %d time per month\nAmount: $%.2f\nBegin date: %s\n", this.getName(), this.getDescription(), this.getCategory(), this.getRecurrence(), this.getAmount(), this.getBeginDate());
+            return String.format("\nName: %s\nDescription: %s\nCategory: %s\nRecurrence: %d time per month\nAmount: $%.2f\nBegin date: %s\n", this.getName(), this.getDescription(), this.getCategory(), this.getRecurrence(), this.getAmountPerPayment(), this.getBeginDate());
         } else {
-            return String.format("\nName: %s\nDescription: %s\nCategory: %s\nRecurrence: %d times per month\nAmount: $%.2f\nBegin date: %s", this.getName(), this.getDescription(), this.getCategory(), this.getRecurrence(), this.getAmount(), this.getBeginDate());
+            return String.format("\nName: %s\nDescription: %s\nCategory: %s\nRecurrence: %d times per month\nAmount: $%.2f\nBegin date: %s", this.getName(), this.getDescription(), this.getCategory(), this.getRecurrence(), this.getAmountPerPayment(), this.getBeginDate());
         }
     }
 
     public String toCSVString() {
-        return name + "," + description + "," + category + "," + recurrence + "," + amount + "," + beginDate;
+        return name + "," + description + "," + category + "," + recurrence + "," + amountPerPayment + "," + beginDate;
     }
 
 }
