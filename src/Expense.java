@@ -8,6 +8,7 @@ public class Expense extends Entry {
     private final ArrayList<String> fields = new ArrayList<>(Arrays.asList("Name", "Description", "Category", "Recurrence", "Amount", "Begin Date"));
 
     public Expense() {
+        super();
     }
 
     public Expense(String name, String description, String category, int recurrence, double amount, LocalDate beginDate) {
@@ -99,7 +100,7 @@ public class Expense extends Entry {
                         break;
                     case "amount":
                         System.out.print("\nEnter the new amount of the expense\n> ");
-                        entryToEdit.setAmount(in.nextDouble());
+                        entryToEdit.setAmountPerPayment(in.nextDouble());
                         in.nextLine();
                         break;
                     case "begin date":
