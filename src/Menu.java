@@ -1,15 +1,29 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Menu class provides a command-line interface for managing
+ * income and expenses. It allows users to add, remove, view, and edit
+ * entries, as well as generate financial reports.
+ */
 public class Menu {
     private Scanner in;
     private CSV csvHandler = new CSV();
     private boolean exit = false;
 
+    /**
+     * Constructs a Menu object and initializes the scanner for user input.
+     */
     public Menu() {
         in = new Scanner(System.in);
     }
 
+    /**
+     * Displays a list of items in a formatted text box.
+     *
+     * @param list The list of items to display.
+     * @param <T>  The type of items in the list.
+     */
     public static <T> void textBox(ArrayList<T> list) {
         if (list.isEmpty()) {
             return;
@@ -22,10 +36,10 @@ public class Menu {
             if (item instanceof Income || item instanceof Expense) {
                 Entry entry = (Entry) item;
                 itemsBuilder.append(entry.getName());
-            } else if (item instanceof String) {  // Specifically check for String type
-                itemsBuilder.append(item); // Append the String directly, without toString()
+            } else if (item instanceof String) {
+                itemsBuilder.append(item);
             } else {
-                itemsBuilder.append(item.toString()); // For other types, use toString()
+                itemsBuilder.append(item.toString());
             }
 
             if (i % 3 == 2 && i != list.size() - 1) {
@@ -36,13 +50,11 @@ public class Menu {
         }
         String items = itemsBuilder.toString();
 
-        // Calculate width (using the formatted items string)
         int padding = 2;
         int width = items.lines().mapToInt(String::length).max().getAsInt() + 2 * padding;
 
         System.out.println("\n+" + "-".repeat(width) + "+");
 
-        // Text inside the box (using the formatted items string)
         for (String line : items.split("\n")) {
             System.out.println("|" + " ".repeat(padding) + line + " ".repeat(width - line.length() - padding) + "|");
         }
@@ -50,14 +62,21 @@ public class Menu {
         System.out.println("+" + "-".repeat(width) + "+");
     }
 
+    /**
+     * Sets the exit flag to indicate whether the program should end.
+     *
+     * @param exit true to exit the program, false to continue.
+     */
     public void setExit(boolean exit) {
         this.exit = exit;
     }
 
+    /**
+     * Displays the main menu and handles user input for menu navigation.
+     */
     public void displayMainMenu() {
         while (!exit) {
             try {
-                // @formatter:off
                 System.out.println("\nMain menu:\n----------");
                 System.out.print(
                         """
@@ -69,7 +88,6 @@ public class Menu {
                         ----------
                         """
                 );
-                // @formatter:on
 
                 System.out.print("> ");
                 switch (in.nextInt()) {
@@ -83,7 +101,7 @@ public class Menu {
                         ReportHandler.beginReport(Income.getIncomes(), Expense.getExpenses(), in);
                         break;
                     case 4:
-                        System.out.println("help");
+                        displayHelpMenu();
                         break;
                     case 5:
                         setExit(true);
@@ -99,10 +117,12 @@ public class Menu {
         }
     }
 
+    /**
+     * Displays the income menu and handles user input for managing incomes.
+     */
     public void displayIncomeMenu() {
         while (!exit) {
             try {
-                // @formatter:off
                 System.out.println("\nIncome menu:\n--------------------");
                 System.out.print(
                         """
@@ -116,7 +136,6 @@ public class Menu {
                         --------------------
                         """
                 );
-                // @formatter:on
 
                 System.out.print("> ");
                 switch (in.nextInt()) {
@@ -159,10 +178,12 @@ public class Menu {
         }
     }
 
+    /**
+     * Displays the expense menu and handles user input for managing expenses.
+     */
     public void displayExpenseMenu() {
         while (!exit) {
             try {
-                // @formatter:off
                 System.out.println("\nExpense menu:\n--------------------");
                 System.out.print(
                         """
@@ -176,7 +197,6 @@ public class Menu {
                         --------------------
                         """
                 );
-                // @formatter:on
 
                 System.out.print("> ");
                 switch (in.nextInt()) {
@@ -218,7 +238,85 @@ public class Menu {
         }
     }
 
-    public void displayHelpMenu() {
+    /**
+     * Displays the help menu and provides information about the system, incomes, and expenses.
+     */
 
+    // TODO: add String helpLocation to the parameters of this method and refactor
+    public void displayHelpMenu() {
+        while (!exit) {
+            try {
+                System.out.println("\nHelp menu:\n----------");
+                System.out.print(""" 
+                        1. System help
+                        2. Income help
+                        3. Expense help
+                        4. Back to main menu
+                        5. Exit
+                        ----------
+                        """);
+                System.out.print("> ");
+                switch (in.nextInt()) {
+                    case 1:
+                        System.out.println("""
+                                System issues can be frustrating! Here's some basic troubleshooting:
+
+                                * Restart the program: This often resolves minor glitches.
+                                * Check your input: Make sure you're entering information in the correct format.
+                                """);
+                        break;
+                    case 2:
+                        System.out.println("""
+                                Tracking your income is essential for managing your finances!
+
+                                Here's how to enter your income:
+
+                                * Name: Give this income source a short, descriptive name (e.g., "Paycheck", "Side Hustle").
+                                * Description:  Add more details about this income source if needed.
+                                * Category: Enter the category that best fits this income (e.g., "Salary", "Investments").
+                                * Amount:  Enter the numerical value of your income (e.g., 2500.50).
+                                * Recurrence: How many times per month do you receive this income?
+                                  (e.g., "1" for monthly, "2" for bi-weekly)
+                                * Begin Date: Enter the date when you started receiving this income (e.g., "2024-12-01").
+
+                                Tips for accurate tracking:
+
+                                * Be sure to enter the correct amount and recurrence to avoid miscalculations.
+                                * If you have multiple income sources, enter each one separately.
+                                """);
+                        break;
+                    case 3:
+                        System.out.println("""
+                                Keeping track of your expenses helps you understand where your money goes!
+
+                                Here's how to enter your expenses:
+
+                                * Name:  Provide a clear name for the expense (e.g., "Rent", "Groceries", "Student Loan").
+                                * Description: Add more details about this expense if needed.
+                                * Category: Enter the category that best describes this expense (e.g., "Housing", "Food", "Debt").
+                                * Amount: Enter the numerical value of the expense (e.g., 100, 50.75).
+                                * Recurrence: How many times per month does this expense occur?
+                                  (e.g., "1" for monthly, "4" for weekly)
+                                * Begin Date: Enter the date when you started incurring this expense (e.g., "2023-05-15").
+
+                                Tips for effective expense tracking:
+
+                                * Be as detailed as possible when naming your expenses (e.g., "Electric Bill" instead of just "Bills").
+                                """);
+                        break;
+                    case 4:
+                        displayMainMenu();
+                        break;
+                    case 5:
+                        setExit(true);
+                        break;
+                    default:
+                        System.out.println("Invalid option. Select a number from the list.\n");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid option. Please select a number.");
+                in.nextLine();
+            }
+        }
     }
 }

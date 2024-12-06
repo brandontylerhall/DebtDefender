@@ -1,6 +1,11 @@
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * The Entry class is an abstract class that represents a generic financial entry,
+ * which can be either an income or an expense. It provides common fields and methods
+ * for managing financial data.
+ */
 public abstract class Entry {
     private String name;
     private String description;
@@ -9,9 +14,22 @@ public abstract class Entry {
     private double amountPerPayment;
     private LocalDate beginDate;
 
+    /**
+     * Constructs an Entry object with default values.
+     */
     public Entry() {
     }
 
+    /**
+     * Constructs an Entry object with specific details.
+     *
+     * @param name             The name of the entry.
+     * @param description      A description of the entry.
+     * @param category         The category of the entry.
+     * @param recurrence       How many times, per month, the entry occurs.
+     * @param amountPerPayment The amount of each payment for the entry.
+     * @param beginDate        The date when the entry began.
+     */
     public Entry(String name, String description, String category, int recurrence, double amountPerPayment, LocalDate beginDate) {
         this.name = name;
         this.description = description;
@@ -21,10 +39,22 @@ public abstract class Entry {
         this.beginDate = beginDate;
     }
 
+    /**
+     * Calculates and returns the total amount for the entry per month.
+     *
+     * @return The total amount per month.
+     */
     public double getAmountPerMonth() {
         return amountPerPayment * recurrence;
     }
 
+    /**
+     * Prompts the user to enter an integer value and validates the input.
+     *
+     * @param in     The Scanner object for user input.
+     * @param prompt The prompt message to display to the user.
+     * @return The valid integer entered by the user.
+     */
     protected static int promptForInt(Scanner in, String prompt) {
         while (true) {
             System.out.print(prompt);
@@ -39,6 +69,13 @@ public abstract class Entry {
         }
     }
 
+    /**
+     * Prompts the user to enter a double value and validates the input.
+     *
+     * @param in     The Scanner object for user input.
+     * @param prompt The prompt message to display to the user.
+     * @return The valid double entered by the user.
+     */
     protected static double promptForDouble(Scanner in, String prompt) {
         while (true) {
             System.out.print(prompt);
@@ -53,6 +90,13 @@ public abstract class Entry {
         }
     }
 
+    /**
+     * Prompts the user to enter a date in the format YYYY-MM-DD and validates the input.
+     *
+     * @param in     The Scanner object for user input.
+     * @param prompt The prompt message to display to the user.
+     * @return The valid LocalDate entered by the user.
+     */
     protected static LocalDate promptForDate(Scanner in, String prompt) {
         while (true) {
             System.out.print(prompt);
@@ -63,6 +107,8 @@ public abstract class Entry {
             }
         }
     }
+
+    // Getters and setters for all fields
 
     public String getName() {
         return name;
@@ -112,14 +158,42 @@ public abstract class Entry {
         this.beginDate = beginDate;
     }
 
+    // Abstract methods to be implemented by subclasses
+
+    /**
+     * Adds a new entry.
+     *
+     * @param in The Scanner object for user input.
+     */
     public abstract void add(Scanner in);
 
+    /**
+     * Removes an existing entry.
+     *
+     * @param in The Scanner object for user input.
+     */
     public abstract void remove(Scanner in);
 
+    /**
+     * Edits an existing entry.
+     *
+     * @param in The Scanner object for user input.
+     */
     public abstract void edit(Scanner in);
 
+    /**
+     * Shows all entries.
+     *
+     * @param in The Scanner object for user input.
+     */
     public abstract void showAll(Scanner in);
 
+    /**
+     * Returns a string representation of the entry.
+     *
+     * @return The string representation of the entry.
+     */
+    @Override
     public String toString() {
         if (this.recurrence == 1) {
             return String.format("\nName: %s\nDescription: %s\nCategory: %s\nRecurrence: %d time per month\nAmount: $%.2f\nBegin date: %s\n", this.getName(), this.getDescription(), this.getCategory(), this.getRecurrence(), this.getAmountPerPayment(), this.getBeginDate());
@@ -128,8 +202,12 @@ public abstract class Entry {
         }
     }
 
+    /**
+     * Returns a CSV string representation of the entry.
+     *
+     * @return The CSV string representation of the entry.
+     */
     public String toCSVString() {
         return name + "," + description + "," + category + "," + recurrence + "," + amountPerPayment + "," + beginDate;
     }
-
 }

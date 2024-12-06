@@ -1,7 +1,20 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The `ReportHandler` class provides methods for generating financial reports,
+ * including calculating debt-to-income ratio and identifying top income and expense categories.
+ */
 public class ReportHandler {
+
+    /**
+     * Generates a basic financial report, including total income, total expenses, and debt-to-income ratio.
+     * It also provides an option to drill down into more detailed reports.
+     *
+     * @param incomes  The list of incomes.
+     * @param expenses The list of expenses.
+     * @param in       The `Scanner` object for user input.
+     */
     public static void beginReport(ArrayList<Income> incomes, ArrayList<Expense> expenses, Scanner in) {
         if (incomes.isEmpty() && expenses.isEmpty()) {
             System.out.println("\nThere is nothing to report at this time.");
@@ -51,9 +64,15 @@ public class ReportHandler {
         if (ans.equalsIgnoreCase("y")) {
             topThreeCats(incomes, expenses, in);
         }
-
     }
 
+    /**
+     * Identifies and displays the top three income and expense categories based on their total amounts.
+     *
+     * @param incomes  The list of incomes.
+     * @param expenses The list of expenses.
+     * @param in       The `Scanner` object for user input.
+     */
     public static void topThreeCats(ArrayList<Income> incomes, ArrayList<Expense> expenses, Scanner in) {
         ArrayList<Income> largestThreeIncCats = new ArrayList<>();
         ArrayList<Expense> largestThreeExpCats = new ArrayList<>();
@@ -180,7 +199,12 @@ public class ReportHandler {
         }
     }
 
-
+    /**
+     * Identifies and displays the top three individual incomes and expenses based on their amounts.
+     *
+     * @param incomes  The list of incomes.
+     * @param expenses The list of expenses.
+     */
     public static void topThree(ArrayList<Income> incomes, ArrayList<Expense> expenses) {
         ArrayList<Income> largestThreeIncomes = new ArrayList<>();
         ArrayList<Expense> largestThreeExpenses = new ArrayList<>();

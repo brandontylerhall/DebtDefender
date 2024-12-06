@@ -3,22 +3,53 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * The Income class represents a source of income and provides methods
+ * for managing income data, including adding, removing, editing, and displaying incomes.
+ */
 public class Income extends Entry {
     private static ArrayList<Income> incomes = new ArrayList<>();
     private final ArrayList<String> fields = new ArrayList<>(Arrays.asList("Name", "Description", "Category", "Recurrence", "Amount", "Begin Date"));
 
+    /**
+     * Constructs an Income object with default values.
+     */
     public Income() {
         super();
     }
 
+    /**
+     * Constructs an Income object with specific details.
+     *
+     * @param name             The name of the income.
+     * @param description      A description of the income.
+     * @param category         The category of the income.
+     * @param recurrence       How many times, per month, the entry occurs.
+     * @param amountPerPayment The amount of each income payment.
+     * @param beginDate        The date when the income began.
+     */
     public Income(String name, String description, String category, int recurrence, double amountPerPayment, LocalDate beginDate) {
         super(name, description, category, recurrence, amountPerPayment, beginDate);
     }
 
+    /**
+     * Returns the list of all incomes.
+     *
+     * @return The ArrayList of Income objects.
+     */
     public static ArrayList<Income> getIncomes() {
         return incomes;
     }
 
+    /**
+     * Searches for an income by name and returns it.
+     *
+     * @param in      The Scanner object for user input.
+     * @param incomes The list of incomes to search.
+     * @param type    The type of entry ("income" or "expense").
+     * @param action  The action to be performed on the entry (e.g., "remove", "edit").
+     * @return The Income object if found, otherwise null.
+     */
     public static Income search(Scanner in, ArrayList<Income> incomes, String type, String action) {
         if (incomes.isEmpty()) {
             System.out.printf("\nThere is nothing to %s. Try adding an %s first.\n", action, type);
@@ -39,6 +70,11 @@ public class Income extends Entry {
         return null;
     }
 
+    /**
+     * Prompts the user to enter the details of a new income and adds it to the list.
+     *
+     * @param in The Scanner object for user input.
+     */
     @Override
     public void add(Scanner in) {
         System.out.print("\nEnter the name of the income\n> ");
@@ -55,16 +91,26 @@ public class Income extends Entry {
         incomes.add(income);
     }
 
+    /**
+     * Removes an income from the list based on user input.
+     *
+     * @param in The Scanner object for user input.
+     */
     @Override
     public void remove(Scanner in) {
         Income entryToRemove = Income.search(in, incomes, "income", "remove");
 
         if (entryToRemove != null) {
             incomes.remove(entryToRemove);
-            System.out.println("Income removed successfully!");
+            System.out.println("\nIncome removed successfully!");
         }
     }
 
+    /**
+     * Allows the user to edit the details of an existing income.
+     *
+     * @param in The Scanner object for user input.
+     */
     @Override
     public void edit(Scanner in) {
         Income entryToEdit = Income.search(in, incomes, "income", "edit");
@@ -105,7 +151,7 @@ public class Income extends Entry {
                         entryToEdit.setBeginDate(LocalDate.parse(in.nextLine()));
                         break;
                     default:
-                        System.out.println("That field doesn't exist");
+                        System.out.println("\nThat field doesn't exist");
                         break;
                 }
 
@@ -118,6 +164,11 @@ public class Income extends Entry {
         }
     }
 
+    /**
+     * Displays all incomes and allows the user to view more details of a specific income.
+     *
+     * @param in The Scanner object for user input.
+     */
     public void showAll(Scanner in) {
         if (incomes.isEmpty()) {
             System.out.println("\nNothing to show");
@@ -136,7 +187,6 @@ public class Income extends Entry {
                 String nameToSeeMoreOf = in.nextLine();
 
                 boolean found = false;
-                // Iterates through incomes, attempting to find the one the user wants
                 for (Entry income : incomes) {
                     if (income.getName().toLowerCase().contains(nameToSeeMoreOf)) {
                         System.out.println(income);

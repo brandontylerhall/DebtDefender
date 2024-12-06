@@ -2,29 +2,58 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-
+/**
+ * The Expense class represents an expense and provides methods for
+ * managing expense data, including adding, removing, editing, and displaying expenses.
+ */
 public class Expense extends Entry {
     private static ArrayList<Expense> expenses = new ArrayList<>();
     private final ArrayList<String> fields = new ArrayList<>(Arrays.asList("Name", "Description", "Category", "Recurrence", "Amount", "Begin Date"));
 
+    /**
+     * Constructs an Expense object with default values.
+     */
     public Expense() {
         super();
     }
 
+    /**
+     * Constructs an Expense object with the specified details.
+     *
+     * @param name             The name of the expense.
+     * @param description      A description of the expense.
+     * @param category         The category of the expense.
+     * @param recurrence       How many times, per month, the entry occurs.
+     * @param amount           The amount of the expense.
+     * @param beginDate        The date when the expense began.
+     */
     public Expense(String name, String description, String category, int recurrence, double amount, LocalDate beginDate) {
         super(name, description, category, recurrence, amount, beginDate);
     }
 
+    /**
+     * Returns the list of all expenses.
+     *
+     * @return The ArrayList of Expense objects.
+     */
     public static ArrayList<Expense> getExpenses() {
         return expenses;
     }
 
+    /**
+     * Searches for an expense by name and returns it.
+     *
+     * @param in      The Scanner object for user input.
+     * @param expenses The list of expenses to search.
+     * @param type    The type of entry ("income" or "expense").
+     * @param action  The action to be performed on the entry (e.g., "remove", "edit").
+     * @return The Expense object if found, otherwise null.
+     */
     public static Expense search(Scanner in, ArrayList<Expense> expenses, String type, String action) {
         if (expenses.isEmpty()) {
             System.out.printf("There is nothing to %s. Try adding an %s first.\n", action, type);
+            return null;
         }
-
-        in.nextLine();
 
         Menu.textBox(expenses);
         System.out.printf("Select the name of the %s you would like to %s\n> ", type, action);
@@ -40,6 +69,11 @@ public class Expense extends Entry {
         return null;
     }
 
+    /**
+     * Prompts the user to enter the details of a new expense and adds it to the list.
+     *
+     * @param in The Scanner object for user input.
+     */
     @Override
     public void add(Scanner in) {
         System.out.print("\nEnter the name of the expense\n> ");
@@ -56,6 +90,11 @@ public class Expense extends Entry {
         expenses.add(expense);
     }
 
+    /**
+     * Removes an expense from the list based on user input.
+     *
+     * @param in The Scanner object for user input.
+     */
     @Override
     public void remove(Scanner in) {
         Expense entryToRemove = Expense.search(in, expenses, "expense", "remove");
@@ -63,11 +102,14 @@ public class Expense extends Entry {
         if (entryToRemove != null) {
             expenses.remove(entryToRemove);
             System.out.println("\nExpense removed successfully!");
-        } else {
-            System.out.println("\nExpense not found.");
         }
     }
 
+    /**
+     * Allows the user to edit the details of an existing expense.
+     *
+     * @param in The Scanner object for user input.
+     */
     @Override
     public void edit(Scanner in) {
         Expense entryToEdit = Expense.search(in, expenses, "expense", "edit");
@@ -118,11 +160,14 @@ public class Expense extends Entry {
                 stop = ans.equalsIgnoreCase("n");
             }
             System.out.println("\nExpense updated successfully!");
-        } else {
-            System.out.println("\nExpense not found.");
         }
     }
 
+    /**
+     * Displays all expenses and allows the user to view more details of a specific expense.
+     *
+     * @param in The Scanner object for user input.
+     */
     public void showAll(Scanner in) {
         if (expenses.isEmpty()) {
             System.out.println("\nNothing to show");
@@ -141,7 +186,6 @@ public class Expense extends Entry {
                 String nameToSeeMoreOf = in.nextLine();
 
                 boolean found = false;
-                // Iterates through expenses, attempting to find the one the user wants
                 for (Entry expense : expenses) {
                     if (expense.getName().toLowerCase().contains(nameToSeeMoreOf)) {
                         System.out.println(expense);
